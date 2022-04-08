@@ -17,69 +17,73 @@
             Display the generated Geffe key and three intermediate keys (LFSR1, LFSR2 and LFSR3),
             as well as an encrypted binary file.</p>
     </section>
-    <form th:action="@{/encrypt}" method="post" enctype="multipart/form-data">
-        <div>
-            <div>Initial register1</div>
+    <section>
+        <form th:action="@{/encrypt}" method="post" enctype="multipart/form-data">
+            <h2>Geffe streaming encryption</h2>
             <div>
-                <input type="text" name="reg1" pattern="[0-1]{1,23}" size="25">
+                <div>Initial register1</div>
+                <div>
+                    <input type="text" name="reg1" pattern="[0-1]{1,23}" size="25">
+                </div>
+            </div>
+            <div>
+                <div>Initial register2</div>
+                <div>
+                    <input type="text" name="reg2" pattern="[0-1]{1,31}" size="34">
+                </div>
+            </div>
+            <div>
+                <div>Initial register3</div>
+                <div>
+                    <input type="text" name="reg3" pattern="[0-1]{1,39}" size="43">
+                </div>
+            </div>
+            <div>
+                <div>Attachment</div>
+                <div>
+                    <input type="file" name="attachment">
+                </div>
+            </div>
+            <div>
+                <button type="submit">Encrypt</button>
+            </div>
+        </form>
+    </section>
+    <section>
+        <div th:switch="${modelOutput}">
+            <h2 th:case="null"></h2>
+            <div th:case="*">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Input:</td>
+                        <td th:text="${modelOutput.input}"></td>
+                    </tr>
+                    <tr>
+                        <td>LFSR1:</td>
+                        <td th:text="${modelOutput.lfsrKey1}"></td>
+                    </tr>
+                    <tr>
+                        <td>LFSR2:</td>
+                        <td th:text="${modelOutput.lfsrKey2}"></td>
+                    </tr>
+                    <tr>
+                        <td>LFSR3:</td>
+                        <td th:text="${modelOutput.lfsrKey3}"></td>
+                    </tr>
+                    <tr>
+                        <td>Key:</td>
+                        <td th:text="${modelOutput.key}"></td>
+                    </tr>
+                    <tr>
+                        <td>Output:</td>
+                        <td th:text="${modelOutput.output}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div>
-            <div>Initial register2</div>
-            <div>
-                <input type="text" name="reg2" pattern="[0-1]{1,31}" size="34">
-            </div>
-        </div>
-        <div>
-            <div>Initial register3</div>
-            <div>
-                <input type="text" name="reg3" pattern="[0-1]{1,39}" size="43">
-            </div>
-        </div>
-        <div>
-            <div>Attachment</div>
-            <div>
-                <input type="file" name="attachment">
-            </div>
-        </div>
-        <div>
-            <button type="submit">Encrypt</button>
-        </div>
-    </form>
-
-    <div th:switch="${modelOutput}">
-        <h2 th:case="null"></h2>
-        <div th:case="*">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Input:</td>
-                    <td th:text="${modelOutput.input}"></td>
-                </tr>
-                <tr>
-                    <td>LFSR1:</td>
-                    <td th:text="${modelOutput.lfsrKey1}"></td>
-                </tr>
-                <tr>
-                    <td>LFSR2:</td>
-                    <td th:text="${modelOutput.lfsrKey2}"></td>
-                </tr>
-                <tr>
-                    <td>LFSR3:</td>
-                    <td th:text="${modelOutput.lfsrKey3}"></td>
-                </tr>
-                <tr>
-                    <td>Key:</td>
-                    <td th:text="${modelOutput.key}"></td>
-                </tr>
-                <tr>
-                    <td>Output:</td>
-                    <td th:text="${modelOutput.output}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </section>
 </main>
 <style>
     body {
@@ -102,6 +106,7 @@
 
     button {
         margin-top: 15px;
+        margin-bottom: 15px;
     }
 </style>
 </body>
