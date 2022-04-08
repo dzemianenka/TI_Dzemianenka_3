@@ -9,5 +9,5 @@ public interface GeffeService {
 
     GeffeOutputModel encrypt(GeffeInputModel inputModel) throws IOException;
 
-    byte[] generateKey(GeffeInputModel inputModel) throws IOException;
+    byte[] generateKey(GeffeInputModel inputModel, GeffeOutputModel outputModel) throws IOException;
 }

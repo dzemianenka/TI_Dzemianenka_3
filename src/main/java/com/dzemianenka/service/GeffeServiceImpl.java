@@ -58,7 +58,7 @@ public class GeffeServiceImpl implements GeffeService {
         byte[] bytes = inputModel.getAttachment().getBytes();
         outputModel.setInput(getBitesString(bytes));
 
-        byte[] key = generateKey(inputModel);
+        byte[] key = generateKey(inputModel, outputModel);
         outputModel.setKey(getBitesString(key));
 
         byte[] outputBytes = new byte[bytes.length];
@@ -70,29 +70,34 @@ public class GeffeServiceImpl implements GeffeService {
         return outputModel;
     }
 
-    private String getBitesString(byte[] bytes) {
-        StringBuilder builder = new StringBuilder();
-        for (byte b : bytes) {
-            builder.append(String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0'));
-        }
-        return builder.toString();
-    }
-
     @Override
-    public byte[] generateKey(GeffeInputModel inputModel) throws IOException {
+    public byte[] generateKey(GeffeInputModel inputModel, GeffeOutputModel outputModel) throws IOException {
         int len = inputModel.getAttachment().getBytes().length;
 
         LFSRGeneratorImpl lfsr = new LFSRGeneratorImpl(inputModel.getReg1(), polynomial1);
         byte[] key1 = lfsr.generateKey(len);
+        outputModel.setLfsrKey1(getBitesString(key1));
+
         lfsr = new LFSRGeneratorImpl(inputModel.getReg2(), polynomial2);
         byte[] key2 = lfsr.generateKey(len);
+        outputModel.setLfsrKey2(getBitesString(key2));
+
         lfsr = new LFSRGeneratorImpl(inputModel.getReg3(), polynomial3);
         byte[] key3 = lfsr.generateKey(len);
+        outputModel.setLfsrKey3(getBitesString(key3));
 
         byte[] key = new byte[len];
         for (int i = 0; i < len; i++) {
             key[i] = (byte) ((byte) (key1[i] & key2[i]) | (~key1[i] & key3[i]));
         }
         return key;
+    }
+
+    private String getBitesString(byte[] bytes) {
+        StringBuilder builder = new StringBuilder();
+        for (byte b : bytes) {
+            builder.append(String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0'));
+        }
+        return builder.toString();
     }
 }
