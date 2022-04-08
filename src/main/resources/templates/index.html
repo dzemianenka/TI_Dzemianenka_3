@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TI_Dzemianenka_3</title>
+</head>
+<body>
+<form th:action="@{/encrypt}" method="post" enctype="multipart/form-data">
+    <div>
+        <div>Initial register1</div>
+        <div>
+            <input type="text" name="reg1">
+        </div>
+    </div>
+    <div>
+        <div>Initial register2</div>
+        <div>
+            <input type="text" name="reg2">
+        </div>
+    </div>
+    <div>
+        <div>Initial register3</div>
+        <div>
+            <input type="text" name="reg3">
+        </div>
+    </div>
+    <div>
+        <div>Attachment</div>
+        <div>
+            <input type="file" name="attachment">
+        </div>
+    </div>
+    <div>
+        <button type="submit">Send</button>
+    </div>
+</form>
+
+<div th:switch="${modelOutput}">
+    <h2 th:case="null"></h2>
+    <div th:case="*">
+        <table>
+            <tbody>
+            <tr>
+                <td>Input: </td>
+                <td th:text="${modelOutput.input}"></td>
+            </tr>
+            <tr>
+                <td>Key: </td>
+                <td th:text="${modelOutput.key}"></td>
+            </tr>
+            <tr>
+                <td>Output: </td>
+                <td th:text="${modelOutput.output}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    body {
+        background: gainsboro;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+        border: 1px solid #000;
+        text-align: left;
+    }
+
+    table th {
+        text-align: center;
+    }
+</style>
+</body>
+</html>
