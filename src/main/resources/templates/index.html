@@ -5,69 +5,82 @@
     <title>TI_Dzemianenka_3</title>
 </head>
 <body>
-<form th:action="@{/encrypt}" method="post" enctype="multipart/form-data">
-    <div>
-        <div>Initial register1</div>
+<h1>TI</h1>
+<h2>IPR 3</h2>
+<main>
+    <section>
+        <h2>Task</h2>
+        <p>Implement a streaming encryption system and decrypting a file with any content
+            by implementing the Geffe scheme with three registers LFSR1, LFSR2 and LFSR3<br>
+            Enter the initial state of the registers from the keyboard.<br>
+            The field for entering the state of the register must ignore any characters other than 0 and 1.<br>
+            Display the generated Geffe key and three intermediate keys (LFSR1, LFSR2 and LFSR3),
+            as well as an encrypted binary file.</p>
+    </section>
+    <form th:action="@{/encrypt}" method="post" enctype="multipart/form-data">
         <div>
-            <input type="text" name="reg1">
+            <div>Initial register1</div>
+            <div>
+                <input type="text" name="reg1" pattern="[0-1]{1,23}" size="23">
+            </div>
         </div>
-    </div>
-    <div>
-        <div>Initial register2</div>
         <div>
-            <input type="text" name="reg2">
+            <div>Initial register2</div>
+            <div>
+                <input type="text" name="reg2" pattern="[0-1]{1,31}" size="31">
+            </div>
         </div>
-    </div>
-    <div>
-        <div>Initial register3</div>
         <div>
-            <input type="text" name="reg3">
+            <div>Initial register3</div>
+            <div>
+                <input type="text" name="reg3" pattern="[0-1]{1,39}" size="39">
+            </div>
         </div>
-    </div>
-    <div>
-        <div>Attachment</div>
         <div>
-            <input type="file" name="attachment">
+            <div>Attachment</div>
+            <div>
+                <input type="file" name="attachment">
+            </div>
         </div>
-    </div>
-    <div>
-        <button type="submit">Send</button>
-    </div>
-</form>
+        <div>
+            <button type="submit">Encrypt</button>
+        </div>
+    </form>
 
-<div th:switch="${modelOutput}">
-    <h2 th:case="null"></h2>
-    <div th:case="*">
-        <table>
-            <tbody>
-            <tr>
-                <td>Input: </td>
-                <td th:text="${modelOutput.input}"></td>
-            </tr>
-            <tr>
-                <td>LFSR1: </td>
-                <td th:text="${modelOutput.lfsrKey1}"></td>
-            </tr>
-            <tr>
-                <td>LFSR2: </td>
-                <td th:text="${modelOutput.lfsrKey2}"></td>
-            </tr>
-            <tr>
-                <td>LFSR3: </td>
-                <td th:text="${modelOutput.lfsrKey3}"></td>
-            </tr>
-            <tr>
-                <td>Key: </td>
-                <td th:text="${modelOutput.key}"></td>
-            </tr>
-            <tr>
-                <td>Output: </td>
-                <td th:text="${modelOutput.output}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div th:switch="${modelOutput}">
+        <h2 th:case="null"></h2>
+        <div th:case="*">
+            <table>
+                <tbody>
+                <tr>
+                    <td>Input:</td>
+                    <td th:text="${modelOutput.input}"></td>
+                </tr>
+                <tr>
+                    <td>LFSR1:</td>
+                    <td th:text="${modelOutput.lfsrKey1}"></td>
+                </tr>
+                <tr>
+                    <td>LFSR2:</td>
+                    <td th:text="${modelOutput.lfsrKey2}"></td>
+                </tr>
+                <tr>
+                    <td>LFSR3:</td>
+                    <td th:text="${modelOutput.lfsrKey3}"></td>
+                </tr>
+                <tr>
+                    <td>Key:</td>
+                    <td th:text="${modelOutput.key}"></td>
+                </tr>
+                <tr>
+                    <td>Output:</td>
+                    <td th:text="${modelOutput.output}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</main>
 <style>
     body {
         background: gainsboro;
@@ -85,6 +98,10 @@
 
     table th {
         text-align: center;
+    }
+
+    button {
+        margin-top: 15px;
     }
 </style>
 </body>
