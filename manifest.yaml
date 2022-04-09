@@ -1,0 +1,10 @@
+---
+applications:
+  - name: ti-dzemianenka-3
+    instances: 1
+    memory: 1G
+    path: target/TI_Dzemianenka_3-0.0.1-SNAPSHOT.jar
+    buildpack: sap_java_buildpack
+    env:
+      JBP_CONFIG_SAP_MACHINE_JRE: '{ jre: { version: 11.+ } }'
+      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
